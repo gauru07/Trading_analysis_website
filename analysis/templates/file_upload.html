@@ -1,0 +1,69 @@
+
+
+<!-- upload_file.html -->
+<!-- upload_file.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload CSV File</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .container {
+            width: 400px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label {
+            display: block;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        label:hover {
+            background-color: #0056b3;
+        }
+
+        button[type="submit"] {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #1b832d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upload CSV File</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="csv_file">Choose CSV File</label>
+            <input type="file" name="csv_file" id="csv_file">
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+</body>
+</html>
+
