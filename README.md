@@ -15,4 +15,3 @@ So Input you have to upload a document, make sure the document should have your 
 Here OrderType could have two input values 
 - Buy (uppercase or lowercase)
 - Sell (uppercase or lowercase)
-
