@@ -7,7 +7,7 @@ from .final_analysis import *
 from sample_data_generator import *
 import openai
 openai.organization = "org-FJdvXADZhfDn09iHQlkuHXgP"
-openai.api_key = "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"
+openai.api_key = "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"
 
 
 def csv_upload(request):
