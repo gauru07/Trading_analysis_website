@@ -66,29 +66,29 @@ def csv_upload(request):
 
 
 
-            df = calculation(df)
+        df = calculation(df)
 
-            df.dropna(inplace=True)
+        df.dropna(inplace=True)
 
-            diction = df.iloc[-1].to_dict()
-            diction = {key: round(value, 2) for key, value in diction.items() if key != 'datetime' and type(value)!=str}
+        diction = df.iloc[-1].to_dict()
+        diction = {key: round(value, 2) for key, value in diction.items() if key != 'datetime' and type(value)!=str}
 
-            print(df)
-            context = {
-                'datetime': df['datetime'].dt.strftime('%y %m-%d ').tolist(),
-                'max_drawdown': df['max_drawdown'].tolist(),
-                'win_loss': df['win_loss_ratio'].tolist(),
-                'sortino_ratio': df['sortino_ratio'].tolist(),
-                'sharpe_ratio': df['sharpe_ratio'].tolist(),
-                'cumulative_returns':df['cumulative_returns'].tolist(),
-                'standard_deviation':df['standard_deviation'].tolist(),
-                'excess_returns':df['excess_returns'].tolist(),
-                'information_ratio':df['information_ratio'].tolist(),
-                'calmar_ratio':df['calmar_ratio'].tolist(),
-                'response1': response1,
-                'response2': response2,
-                'last_value':diction
-            }
+        print(df)
+        context = {
+            'datetime': df['datetime'].dt.strftime('%y %m-%d ').tolist(),
+            'max_drawdown': df['max_drawdown'].tolist(),
+            'win_loss': df['win_loss_ratio'].tolist(),
+            'sortino_ratio': df['sortino_ratio'].tolist(),
+            'sharpe_ratio': df['sharpe_ratio'].tolist(),
+            'cumulative_returns':df['cumulative_returns'].tolist(),
+            'standard_deviation':df['standard_deviation'].tolist(),
+            'excess_returns':df['excess_returns'].tolist(),
+            'information_ratio':df['information_ratio'].tolist(),
+            'calmar_ratio':df['calmar_ratio'].tolist(),
+            'response1': response1,
+            'response2': response2,
+            'last_value':diction
+        }
         return render(request, 'analysis_final.html', context)
 
     return render(request, "file_upload.html")
