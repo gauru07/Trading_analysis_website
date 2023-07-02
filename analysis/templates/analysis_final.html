@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +34,26 @@
 
     <div style="width: 80%; margin: 0 auto;">
 
+        <div class="row" style="padding-bottom: 20px; width: 80%; display: flex; margin-left: 10%;">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">2.06</h5>
+                  <p class="card-text">Maximum Drawdown</p>
+                  <a href="#" class="btn btn-primary" style="background-color: grey; border: grey;">Definition</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">12.87 %</h5>
+                  <p class="card-text">Cumulative Return</p>
+                  <a href="#" class="btn btn-primary" style="background-color: grey; border: grey;">Definition</a>
+                </div>
+              </div>
+            </div>
+          </div>
 
         <div class="chart-container">
             <canvas id="profitChart"></canvas>
@@ -42,7 +63,27 @@
             <canvas id="param1Chart"></canvas>
         </div>
 
-
+        <hr>
+        <div class="row" style="padding-bottom: 20px; width: 80%; display: flex; margin-left: 10%;">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">6.23</h5>
+                  <p class="card-text">Winloss Ratio</p>
+                  <a href="#" class="btn btn-primary" style="background-color: grey; border: grey;">Definition</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">25.3</h5>
+                  <p class="card-text">Calmers Ratio</p>
+                  <a href="#" class="btn btn-primary" style="background-color: grey; border: grey;">Definition</a>
+                </div>
+              </div>
+            </div>
+          </div>
         <div class="chart-container">
             <canvas id="param2Chart"></canvas>
         </div>
@@ -50,6 +91,37 @@
         <div class="chart-container">
             <canvas id="param3Chart"></canvas>
         </div>
+
+
+        <hr>
+        <div class="row" style="padding-bottom: 20px; width: 80%; display: flex; margin-left: 10%;">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">6.23</h5>
+                  <p class="card-text">Winloss Ratio</p>
+                  <a href="#" class="btn btn-primary" style="background-color: grey; border: grey;">Definition</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">25.3</h5>
+                  <p class="card-text">Calmers Ratio</p>
+                  <a href="#" class="btn btn-primary" style="background-color: grey; border: grey;">Definition</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="chart-container">
+            <canvas id="param4Chart"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="param5Chart"></canvas>
+        </div>
+
     </div>
 
 
@@ -114,9 +186,12 @@
         var datetimeList = {{ datetime | safe }};
         var profitList = {{ max_drawdown | safe }};
         var param1List = {{ win_loss | safe }};
-        var param2List = {{ quantity | safe }};
+        var param2List = {{ sortino_ratio | safe }};
         var param3List = {{ cumulative_returns | safe }};
 
+
+        var param4List = {{ sharpe_ratio | safe }};
+        var param5List = {{ calmar_ratio | safe }};
         // console.log(datetimeList);   
         
 
@@ -126,6 +201,9 @@
         var param1Ctx = document.getElementById('param1Chart').getContext('2d');
         var param2Ctx = document.getElementById('param2Chart').getContext('2d');
         var param3Ctx = document.getElementById('param3Chart').getContext('2d');
+
+        var param4Ctx = document.getElementById('param4Chart').getContext('2d');
+        var param5Ctx = document.getElementById('param5Chart').getContext('2d');
 
         // Create the charts
         var profitChart = new Chart(profitCtx, {
@@ -167,7 +245,7 @@
             data: {
                 labels: datetimeList,
                 datasets: [{
-                    label: 'Quantity',
+                    label: 'Sortino Ratio',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                     data: param2List,
@@ -178,12 +256,7 @@
             },
             options: {
                 responsive: true,
-                scales: {
-                    y: {
-                        max: 100, // Set the maximum value for the y-axis here
-                        beginAtZero: true // If true, the chart will begin at zero
-                    }
-                }
+
             }
         });
 
@@ -202,15 +275,49 @@
                 }]
             },
             options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        max: 10, // Set the maximum value for the y-axis here
-                        beginAtZero: true // If true, the chart will begin at zero
-                    }
-                }
+                responsive: true
             }
         });
+
+        var param4Chart = new Chart(param4Ctx, {
+            type: 'line',
+            data: {
+                labels: datetimeList,
+                datasets: [{
+                    label: 'sharpe ratio',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    data: param4List,
+                    fill: true,
+                    borderWidth: 1.5,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+        var param5Chart = new Chart(param5Ctx, {
+            type: 'line',
+            data: {
+                labels: datetimeList,
+                datasets: [{
+                    label: 'calmar ratio',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    data: param5List,
+                    fill: true,
+                    borderWidth: 1.5,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+
 
     </script>
 </body>
