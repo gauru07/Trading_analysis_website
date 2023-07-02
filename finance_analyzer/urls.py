@@ -17,9 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from analysis.views import *
+from django.contrib.staticfiles import staticfile_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", csv_upload, name="upload_csv"),
     path("analysis", analysis_data, name="data_analysis")
 ]
+
+
+urlpatterns+=staticfile_urlpatterns()
