@@ -35,7 +35,7 @@ def csv_upload(request):
 
 
         response2=4
-        response1="Your performance as per the reports are great, need to work on Maxdrawdown though"
+        response1="The trader's purchase of INFY stock suggests that he or she believes the stock is undervalued at its current price relative to its earnings and should appreciate in price. Another financial ratio that is useful for analyzing the performance of the trader is the price-to-book (P/B) ratio, which is calculated by dividing the current stock price by its book value. The higher the P/B ratio, the more expensive the stock is relative to its book value. The trader's purchase of INFY suggests that he or she believes the stock is undervalued at its current price relative to its"
         try:
             last_row = df.tail(1).to_string(index=False)
             prompt1 = f"Can you provide an analysis of the trader's(not about how much quantity he bought but about what are different types of financial ratio) performance based on the following data?\n\n{last_row}"
@@ -103,7 +103,7 @@ def analysis_data(request):
     df['quantity'] = df['quantity'].astype(int)
     
     response2=4
-    response1="Your performance as per the reports are great, need to work on Maxdrawdown though"
+    response1="The trader's purchase of INFY stock suggests that he or she believes the stock is undervalued at its current price relative to its earnings and should appreciate in price. Another financial ratio that is useful for analyzing the performance of the trader is the price-to-book (P/B) ratio, which is calculated by dividing the current stock price by its book value. The higher the P/B ratio, the more expensive the stock is relative to its book value. The trader's purchase of INFY suggests that he or she believes the stock is undervalued at its current price relative to its"
     try:
         last_row = df.tail(1).to_string(index=False)
         prompt1 = f"Can you provide an analysis of the trader's(not about how much quantity he bought but about what are different types of financial ratio) performance based on the following data?\n\n{last_row}"
