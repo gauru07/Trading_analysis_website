@@ -31,14 +31,15 @@
   </nav>
 
 <h3 style="padding-top: 10px; padding-bottom: 10px; text-align: center;">Finance Analysis For your porfolio</h3>
-
+<h5 style="text-align: center;"> Your Profile Score: </h5>
+<h1 style="text-align:center; padding-bottom: 10px; color: greenyellow;"> {{ response2 }}</h1>
     <div style="width: 80%; margin: 0 auto;">
 
         <div class="row" style="padding-bottom: 20px; width: 80%; display: flex; margin-left: 10%;">
             <div class="col-sm-6">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">2.06</h5>
+                  <h5 class="card-title">{{ last_value.max_drawdown}}</h5>
                   <p class="card-text">Maximum Drawdown</p>
                   <a href="#" class="btn btn-primary" style="background-color: grey; border: grey;">Definition</a>
                 </div>
@@ -47,8 +48,8 @@
             <div class="col-sm-6">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">12.87 %</h5>
-                  <p class="card-text">Cumulative Return</p>
+                  <h5 class="card-title">{{ last_value.win_loss_ratio}}</h5>
+                  <p class="card-text">winloss ratio</p>
                   <a href="#" class="btn btn-primary" style="background-color: grey; border: grey;">Definition</a>
                 </div>
               </div>
@@ -68,8 +69,8 @@
             <div class="col-sm-6">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">6.23</h5>
-                  <p class="card-text">Winloss Ratio</p>
+                  <h5 class="card-title">{{ last_value.sortino_ratio }}</h5>
+                  <p class="card-text">sortino Ratio</p>
                   <a href="#" class="btn btn-primary" style="background-color: grey; border: grey;">Definition</a>
                 </div>
               </div>
@@ -77,8 +78,8 @@
             <div class="col-sm-6">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">25.3</h5>
-                  <p class="card-text">Calmers Ratio</p>
+                  <h5 class="card-title">{{ last_value.cumulative_returns }} %</h5>
+                  <p class="card-text">cumulative  Ratio</p>
                   <a href="#" class="btn btn-primary" style="background-color: grey; border: grey;">Definition</a>
                 </div>
               </div>
@@ -98,8 +99,8 @@
             <div class="col-sm-6">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">6.23</h5>
-                  <p class="card-text">Winloss Ratio</p>
+                  <h5 class="card-title">{{ last_value.sharpe_ratio}}</h5>
+                  <p class="card-text">sharpe Ratio</p>
                   <a href="#" class="btn btn-primary" style="background-color: grey; border: grey;">Definition</a>
                 </div>
               </div>
@@ -107,8 +108,8 @@
             <div class="col-sm-6">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">25.3</h5>
-                  <p class="card-text">Calmers Ratio</p>
+                  <h5 class="card-title">{{ last_value.calmar_ratio}}</h5>
+                  <p class="card-text">calmar Ratio</p>
                   <a href="#" class="btn btn-primary" style="background-color: grey; border: grey;">Definition</a>
                 </div>
               </div>
@@ -122,6 +123,8 @@
             <canvas id="param5Chart"></canvas>
         </div>
 
+        <h4 style="text-align: center;"> Your Profile Review: </h4>
+        <h5 style="text-align:center; padding-bottom: 10px;"> {{ response1 }}</h5>
     </div>
 
 

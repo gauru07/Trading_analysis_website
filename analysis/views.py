@@ -5,6 +5,9 @@ import csv
 import pandas as pd
 from .final_analysis import *
 from sample_data_generator import *
+import openai
+openai.organization = "org-FJdvXADZhfDn09iHQlkuHXgP"
+openai.api_key = "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"
 
 
 def csv_upload(request):
@@ -30,19 +33,61 @@ def csv_upload(request):
         
 
 
-        df = calculation(df)
 
-        df.dropna(inplace=True)
-        print(df)
-        context = {
-            'datetime': df['datetime'].dt.strftime('%m-%d ').tolist(),
-            'max_drawdown': df['max_drawdown'].tolist(),
-            'win_loss': df['win_loss_ratio'].tolist(),
-            'quantity': df['quantity'].tolist(),
-            'cumulative_returns':df['cumulative_returns'].tolist(),
+        response2=4
+        response1="Your performance as per the reports are great, need to work on Maxdrawdown though"
+        try:
+            last_row = df.tail(1).to_string(index=False)
+            prompt1 = f"Can you provide an analysis of the trader's(not about how much quantity he bought but about what are different types of financial ratio) performance based on the following data?\n\n{last_row}"
+            prompt2 = f"Please rate the trader's performance between 0.0 and 10.0 on the basis of {last_row}:"
 
-        }
+            completion1 = openai.Completion.create(
+                engine="text-davinci-003",
+                prompt=prompt1,
+                max_tokens=200
+            )
 
+            response1 = completion1.choices[0].text.strip()
+
+            completion2 = openai.Completion.create(
+                engine="text-davinci-003",
+                prompt=prompt2,
+                max_tokens=5,  
+                temperature=0.0,  
+                stop=None
+            )
+
+            response2 = completion2.choices[0].text.strip()
+
+            print(response1,response2)
+        except Exception as e:
+            print(str(e))
+
+
+
+            df = calculation(df)
+
+            df.dropna(inplace=True)
+
+            diction = df.iloc[-1].to_dict()
+            diction = {key: round(value, 2) for key, value in diction.items() if key != 'datetime' and type(value)!=str}
+
+            print(df)
+            context = {
+                'datetime': df['datetime'].dt.strftime('%y %m-%d ').tolist(),
+                'max_drawdown': df['max_drawdown'].tolist(),
+                'win_loss': df['win_loss_ratio'].tolist(),
+                'sortino_ratio': df['sortino_ratio'].tolist(),
+                'sharpe_ratio': df['sharpe_ratio'].tolist(),
+                'cumulative_returns':df['cumulative_returns'].tolist(),
+                'standard_deviation':df['standard_deviation'].tolist(),
+                'excess_returns':df['excess_returns'].tolist(),
+                'information_ratio':df['information_ratio'].tolist(),
+                'calmar_ratio':df['calmar_ratio'].tolist(),
+                'response1': response1,
+                'response2': response2,
+                'last_value':diction
+            }
         return render(request, 'analysis_final.html', context)
 
     return render(request, "file_upload.html")
@@ -57,11 +102,42 @@ def analysis_data(request):
     df['price'] = df['price'].astype(float)
     df['quantity'] = df['quantity'].astype(int)
     
+    response2=4
+    response1="Your performance as per the reports are great, need to work on Maxdrawdown though"
+    try:
+        last_row = df.tail(1).to_string(index=False)
+        prompt1 = f"Can you provide an analysis of the trader's(not about how much quantity he bought but about what are different types of financial ratio) performance based on the following data?\n\n{last_row}"
+        prompt2 = f"Please rate the trader's performance between 0.0 and 10.0 on the basis of {last_row}:"
+
+        completion1 = openai.Completion.create(
+            engine="text-davinci-003",
+            prompt=prompt1,
+            max_tokens=200
+        )
+
+        response1 = completion1.choices[0].text.strip()
+
+        completion2 = openai.Completion.create(
+            engine="text-davinci-003",
+            prompt=prompt2,
+            max_tokens=5,  # Limit to a few tokens to force a floating number response
+            temperature=0.0,  # Set temperature to 0.0 for deterministic output
+            stop=None  # Disable the default stop sequence
+        )
+
+        response2 = completion2.choices[0].text.strip()
+
+        print(response1,response2)
+    except Exception as e:
+        print(str(e))
 
 
     df = calculation(df)
 
     df.dropna(inplace=True)
+    diction = df.iloc[-1].to_dict()
+    diction = {key: round(value, 2) for key, value in diction.items() if key != 'datetime' and type(value)!=str}
+
     print(df)
     context = {
         'datetime': df['datetime'].dt.strftime('%m-%d ').tolist(),
@@ -74,6 +150,9 @@ def analysis_data(request):
         'excess_returns':df['excess_returns'].tolist(),
         'information_ratio':df['information_ratio'].tolist(),
         'calmar_ratio':df['calmar_ratio'].tolist(),
+        'response1': response1,
+        'response2': response2,
+        'last_value':diction
     }
 
     return render(request, 'analysis_final.html', context)

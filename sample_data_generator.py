@@ -2,8 +2,6 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 
-# Function to generate random datetime within a specific range
-
 
 
 
@@ -13,13 +11,13 @@ def random_datetime(start, end):
     random_seconds = np.random.uniform(0, delta.seconds)
     return start + timedelta(days=random_days, seconds=random_seconds)
 
-# Generate 1000 rows of random data
+
 
 
 def generate():
     np.random.seed(42)
     rows = []
-    stocks_holding = {}  # Dictionary to keep track of stocks and their quantities
+    stocks_holding = {} 
 
     start_datetime = datetime(2023, 6, 1)
     end_datetime = datetime(2023, 6, 30)
@@ -33,19 +31,19 @@ def generate():
 
         if ordertype == 'Buy':
             if stock in stocks_holding:
-                # If the stock is already held, we cannot buy it again without selling the previous stock
+
                 continue
             else:
-                # If the stock is not held, we can buy any random quantity between 10 and 100
+
                 quantity = round(np.random.uniform(10, 100))
-                stocks_holding[stock] = quantity  # Update the stocks_holding dictionary
+                stocks_holding[stock] = quantity 
         else:
             if stock in stocks_holding:
-                # If the stock is held, we can only sell the same quantity that was bought
+
                 quantity = stocks_holding[stock]
-                stocks_holding.pop(stock)  # Remove the stock from the stocks_holding dictionary
+                stocks_holding.pop(stock)  
             else:
-                # If the stock is not held, we cannot sell
+
                 continue
 
         if stock == 'INFY':
@@ -59,9 +57,7 @@ def generate():
 
         exchange = 'NSE'
         rows.append([Datetime, stock, ordertype, price, quantity, exchange])
-        # print(i)
 
-    # Create a DataFrame and save to CSV
     df = pd.DataFrame(rows, columns=['datetime', 'stock', 'ordertype', 'price', 'quantity', 'Exchange'])
     df = df.sort_values(by='datetime').reset_index(drop=True)  # Sort by datetime in increasing order
     df.to_csv('sample_data.csv', index=False)
