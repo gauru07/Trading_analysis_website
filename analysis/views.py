@@ -6,8 +6,9 @@ import pandas as pd
 from .final_analysis import *
 from sample_data_generator import *
 import openai
-openai.organization = "org-FJdvXADZhfDn09iHQlkuHXgP"
-openai.api_key = "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"
+import os
+openai.organization = os.environ.get("OPENAI_ORG_ID")
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 
 def csv_upload(request):
