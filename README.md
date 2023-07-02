@@ -3,7 +3,8 @@
 The Financial Analyzer is a tool designed to analyze trade history data. It takes a document containing trade history with specific columns and provides various insights and metrics related to the trades. This documentation provides an in-depth explanation of the project, its functionalities, and the underlying code.
 
 
-![Alt text](https://github.com/sudhanshu8833/Financial_Analyzer/blob/main/dashboard_pics/analysis_screen.mov)
+
+https://github.com/sudhanshu8833/Financial_Analyzer/assets/84956779/b930471c-abc9-46b4-a2b4-b1a425b6c90d
 
 
 
