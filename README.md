@@ -1,5 +1,7 @@
 # Financial Analyzer
 
+> Note- So, I just discovered this that, I have hosted the website on render.com, so I think the server, gets slow when not used, so I would request you , wait for 30 sec-45 sec, if the website is not responding, then it will show you the results, Thanks 😅  
+
 The Financial Analyzer is a tool designed to analyze trade history data. It takes a document containing trade history with specific columns and provides various insights and metrics related to the trades. This documentation provides an in-depth explanation of the project, its functionalities, and the underlying code.
 
 
